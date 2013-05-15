@@ -45,10 +45,10 @@
   # Only allow tcp - set a global proxy to hit only Tor
   network inet stream,    # tcp stream
   # No ipv4 udp
-  network inet dgram,     # udp
+  deny network inet dgram,     # udp
   # No ipv6 tcp/udp
-  network inet6 stream, # tcp
-  network inet6 dgram, # udp
+  deny network inet6 stream, # tcp
+  deny network inet6 dgram, # udp
 
   #/bin/dash rix,
 

@@ -1,0 +1,41 @@
+#include <tunables/global>
+
+profile /usr/bin/transmission-daemon {
+	#include <abstractions/base>
+	#include <abstractions/dbus>
+	#include <abstractions/fonts>
+	#include <abstractions/nameservice>
+	#include <abstractions/private-files>
+
+	deny @{HOME}/.bash* rw,
+	deny @{HOME}/.ssh/* rw,
+	deny @{PROC}/ r,
+	deny @{PROC}/* r,
+
+	@{PROC}/*/maps r,
+	@{PROC}/*/mounts r,
+	@{PROC}/*/net/route r,
+	@{PROC}/[0-9]*/fd/ r,
+	@{PROC}/sys/kernel/random/uuid r,
+	/dev/random r,
+	/dev/urandom r,
+
+	/usr/bin/transmission-daemon rix,
+	/usr/bin/tranmission rix,
+	/usr/lib r,
+	/usr/lib/** mr,
+	/usr/share/ r,
+	/usr/share/** r,
+
+	owner @{HOME} r,
+	owner @{HOME}/.icons/ r,
+	owner @{HOME}/.icons/** r,
+	owner @{HOME}/Downloads/ r,
+
+	owner @{HOME}/Downloads/** rwlk,
+
+	/etc/transmission-daemon/** rwlk,
+	/var/lib/transmission-daemon/** rwlk,
+
+	#include <local/usr.bin.transmission-daemon>
+}
